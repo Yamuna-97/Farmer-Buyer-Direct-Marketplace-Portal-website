@@ -5,10 +5,11 @@ A comprehensive full-stack web application connecting farmers and buyers directl
 ## 🎯 Project Overview
 
 This marketplace portal enables:
-- **Farmers** to list and manage agricultural products
+- **Farmers** to list and manage agricultural products with images
 - **Buyers** to browse, search, and purchase directly from farmers
-- **Real-time product management** with inventory tracking
+- **Real-time product management** with inventory tracking and product images
 - **Order management** with status tracking
+- **Product images** for all 8 sample products (vegetables, fruits, grains)
 
 ## 📋 Features
 
@@ -24,12 +25,14 @@ This marketplace portal enables:
 - View product details
 - Browse products by category
 - Search functionality
+- **Product images** displayed in marketplace and product details
 
 ### Marketplace
-- Browse all available products
+- Browse all available products with images
 - Filter by category (vegetables, fruits, grains)
 - Search products by name or description
 - View product details and farmer information
+- **Image preview** for each product
 
 ### Order Management
 - Place orders with quantity and delivery address specifications
@@ -53,6 +56,7 @@ This marketplace portal enables:
 - **MongoDB** with **Mongoose** 7.0.0
 - **CORS** for cross-origin requests
 - **Dotenv** for environment configuration
+- **Static File Serving** for product images
 
 ### Database
 - **MongoDB** (NoSQL)
@@ -66,7 +70,7 @@ Farmer-Buyer-Direct-Marketplace-Portal-website/
 ├── backend/
 │   ├── models/
 │   │   ├── User.js          # User schema
-│   │   ├── Product.js       # Product schema
+│   │   ├── Product.js       # Product schema (with images)
 │   │   └── Order.js         # Order schema
 │   │
 │   ├── routes/
@@ -85,7 +89,7 @@ Farmer-Buyer-Direct-Marketplace-Portal-website/
 │   │   └── validation.js    # Input validation
 │   │
 │   ├── db.js                # MongoDB connection
-│   ├── server.js            # Express app entry point
+│   ├── server.js            # Express app entry point (server images)
 │   ├── package.json
 │   └── .env.example
 │
@@ -99,7 +103,7 @@ Farmer-Buyer-Direct-Marketplace-Portal-website/
 │   │   │   ├── Login.js & Auth.css
 │   │   │   ├── Register.js
 │   │   │   ├── Marketplace.js & Marketplace.css
-│   │   │   ├── ProductCard.js & ProductCard.css
+│   │   │   ├── ProductCard.js & ProductCard.css (displays images)
 │   │   │   ├── FarmerDashboard.js & FarmerDashboard.css
 │   │   │   └── AddProduct.js & AddProduct.css
 │   │   │
@@ -121,8 +125,17 @@ Farmer-Buyer-Direct-Marketplace-Portal-website/
 │   │
 │   └── package.json
 │
-├── SAMPLE_DATA.js           # MongoDB sample data
-├── SETUP_INSTRUCTIONS.md    # Detailed setup guide
+├── picture/                     # Product images
+│   ├── tomato.webp
+│   ├── carrot.webp
+│   ├── mango.jpg
+│   ├── banana.jpeg
+│   ├── wheatgrain.jpg
+│   ├── rice.jpeg
+│   ├── Spinach.webp
+│   └── potato.jpg
+│
+├── SAMPLE_DATA.js           # MongoDB sample data (includes images)
 └── README.md                # This file
 ```
 
@@ -130,7 +143,7 @@ Farmer-Buyer-Direct-Marketplace-Portal-website/
 
 ### Prerequisites
 - Node.js (v14 or higher)
-- MongoDB (Local or MongoDB Atlas)
+- MongoDB (Local installation or MongoDB Atlas cloud)
 - npm or yarn package manager
 - Git
 
@@ -150,22 +163,40 @@ cd backend
 # Install dependencies
 npm install
 
-# Create .env file
+# Create .env file (copy from .env.example)
 cp .env.example .env
 
-# Configure MongoDB connection in .env
+# Edit .env with your MongoDB connection string
+# Example for local MongoDB:
 # MONGODB_URI=mongodb://localhost:27017/farmer-buyer-marketplace
 # PORT=5000
 
 # Start MongoDB (if running locally)
-# mongod
+mongod
 
 # Start the backend server
 npm start
-# Server runs on http://localhost:5000
+# Backend server runs on http://localhost:5000
+# Images are served from http://localhost:5000/images/
 ```
 
-#### 3. Frontend Setup
+#### 3. Load Sample Data
+
+```bash
+# Connect to MongoDB
+mongosh
+
+# Select the database
+use farmer-buyer-marketplace
+
+# Copy and paste the contents of SAMPLE_DATA.js from project root
+# This will insert:
+# - 4 users (2 farmers, 2 buyers)
+# - 8 products with images
+# - 3 sample orders
+```
+
+#### 4. Frontend Setup
 
 ```bash
 # In a new terminal, navigate to frontend directory
@@ -176,33 +207,52 @@ npm install
 
 # Start the development server
 npm start
-# Application runs on http://localhost:3000
+# Frontend Application runs on http://localhost:3000
 ```
 
-### Adding Sample Data
+### Sample Login Credentials
 
-```bash
-# Connect to MongoDB
-mongosh
+**Farmer Account:**
+- Email: `rajesh@farm.com`
+- Password: `farmer123`
 
-# Select database
-use farmer-buyer-marketplace
+**Buyer Account:**
+- Email: `amit@buyer.com`
+- Password: `buyer123`
 
-# Copy and paste contents of SAMPLE_DATA.js in MongoDB shell
-# Or import via mongoimport command
+## �️ Product Images
+
+The marketplace includes **8 sample products** with high-quality images:
+
+| Product | Image | Category | Price |
+|---------|-------|----------|-------|
+| Fresh Tomatoes | tomato.webp | Vegetables | ₹45/kg |
+| Carrots | carrot.webp | Vegetables | ₹35/kg |
+| Mangoes | mango.jpg | Fruits | ₹120/kg |
+| Bananas | banana.jpeg | Fruits | ₹40/kg |
+| Wheat Grain | wheatgrain.jpg | Grains | ₹55/kg |
+| Rice | rice.jpeg | Grains | ₹75/kg |
+| Spinach | Spinach.webp | Vegetables | ₹25/kg |
+| Potatoes | potato.jpg | Vegetables | ₹30/kg |
+
+### Image Features
+- ✅ **Static Image Serving** - Backend serves images from `/picture` folder
+- ✅ **Image URLs in Database** - Each product stores image URL reference
+- ✅ **Responsive Display** - Images scale properly on all devices
+- ✅ **Image Preview** - Product cards show images in marketplace
+- ✅ **Multiple Formats** - WebP (compressed), JPG, JPEG supported
+
+### Image Access
+- Images are accessible at: `http://localhost:5000/images/[filename]`
+- Product API returns image URLs for frontend display
+- Frontend displays images in ProductCard and ProductDetails components
+
+## �📚 API Endpoints
+
+### Images
 ```
-
-**Test Credentials:**
-
-Farmer:
-- Email: rajesh@farm.com
-- Password: farmer123
-
-Buyer:
-- Email: amit@buyer.com
-- Password: buyer123
-
-## 📚 API Endpoints
+GET    /images/<filename>       # Get product image (e.g., /images/tomato.webp)
+```
 
 ### Users
 ```
@@ -293,7 +343,7 @@ user-role: <farmer|buyer>
   category: String (vegetables|fruits|grains),
   location: String,
   farmerId: ObjectId,
-  image: String,
+  image: String,              // Image URL (e.g., http://localhost:5000/images/tomato.webp)
   createdAt: Date,
   updatedAt: Date
 }
@@ -355,9 +405,10 @@ user-role: <farmer|buyer>
 - Chat messaging between users
 - Admin panel for moderation
 - Email notifications
-- Image upload functionality
+- Image upload functionality (dynamic image uploads)
 - Wishlist feature
-- Cart functionality
+- Shopping cart with persistent storage
+- Image compression and optimization
 
 ## 🤝 Contributing
 
@@ -370,6 +421,28 @@ This is a demonstration project. For improvements:
 ## 📄 License
 
 This project is open source and available under the MIT License.
+
+## ✅ Current Implementation Status
+
+**Completed Features:**
+- ✅ Full-stack application (React + Node.js + MongoDB)
+- ✅ User authentication (Farmer/Buyer roles)
+- ✅ Product CRUD operations with image display
+- ✅ Shopping cart and order management
+- ✅ Product categories and search functionality
+- ✅ **8 Sample products with high-quality images**
+- ✅ Image serving via static file endpoint
+- ✅ Responsive UI design
+- ✅ Order status tracking
+- ✅ Farmer dashboard
+
+**Project Structure:**
+- Clean and organized codebase
+- Modular component architecture
+- Separation of concerns (models, controllers, routes)
+- RESTful API design
+- MongoDB integration with Mongoose
+- Context API for state management
 
 ## 📞 Support
 
