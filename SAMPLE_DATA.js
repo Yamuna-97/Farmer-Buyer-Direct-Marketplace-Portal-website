@@ -51,6 +51,7 @@ db.products.insertMany([
     unit: "kg",
     category: "vegetables",
     location: "Punjab, India",
+    image: "http://localhost:5000/images/tomato.webp",
     farmerId: db.users.findOne({ email: "rajesh@farm.com" })._id,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -63,6 +64,7 @@ db.products.insertMany([
     unit: "kg",
     category: "vegetables",
     location: "Punjab, India",
+    image: "http://localhost:5000/images/carrot.webp",
     farmerId: db.users.findOne({ email: "rajesh@farm.com" })._id,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -75,6 +77,7 @@ db.products.insertMany([
     unit: "kg",
     category: "fruits",
     location: "Haryana, India",
+    image: "http://localhost:5000/images/mango.jpg",
     farmerId: db.users.findOne({ email: "priya@farm.com" })._id,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -87,6 +90,7 @@ db.products.insertMany([
     unit: "kg",
     category: "fruits",
     location: "Haryana, India",
+    image: "http://localhost:5000/images/banana.jpeg",
     farmerId: db.users.findOne({ email: "priya@farm.com" })._id,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -99,6 +103,7 @@ db.products.insertMany([
     unit: "kg",
     category: "grains",
     location: "Punjab, India",
+    image: "http://localhost:5000/images/wheatgrain.jpg",
     farmerId: db.users.findOne({ email: "rajesh@farm.com" })._id,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -111,6 +116,7 @@ db.products.insertMany([
     unit: "kg",
     category: "grains",
     location: "Haryana, India",
+    image: "http://localhost:5000/images/rice.jpeg",
     farmerId: db.users.findOne({ email: "priya@farm.com" })._id,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -123,6 +129,7 @@ db.products.insertMany([
     unit: "kg",
     category: "vegetables",
     location: "Punjab, India",
+    image: "http://localhost:5000/images/Spinach.webp",
     farmerId: db.users.findOne({ email: "rajesh@farm.com" })._id,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -135,6 +142,7 @@ db.products.insertMany([
     unit: "kg",
     category: "vegetables",
     location: "Haryana, India",
+    image: "http://localhost:5000/images/potato.jpg",
     farmerId: db.users.findOne({ email: "priya@farm.com" })._id,
     createdAt: new Date(),
     updatedAt: new Date()

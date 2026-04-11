@@ -10,11 +10,15 @@ const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 
 const app = express();
+const path = require('path');
 
 // ================= MIDDLEWARE =================
 app.use(cors());
 app.use(express.json());
 app.use(loggingMiddleware);
+
+// Serve static images from picture folder
+app.use('/images', express.static(path.join(__dirname, '../picture')));
 
 // ================= ROUTES =================
 app.use('/api/users', userRoutes);
