@@ -42,7 +42,6 @@ const Login = () => {
       setLoading(false);
     }
   };
-
   return (
     <div className="auth-container">
       <div className="auth-form">
