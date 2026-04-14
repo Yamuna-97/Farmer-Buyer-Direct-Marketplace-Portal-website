@@ -394,7 +394,6 @@ user-role: <farmer|buyer>
 3. Configure API proxy to backend URL
 
 ## 📝 Future Enhancements
-
 - JWT-based authentication
 - Password hashing (bcrypt)
 - Email verification
@@ -411,7 +410,6 @@ user-role: <farmer|buyer>
 - Image compression and optimization
 
 ## 🤝 Contributing
-
 This is a demonstration project. For improvements:
 1. Create feature branches
 2. Follow code style conventions
@@ -419,7 +417,6 @@ This is a demonstration project. For improvements:
 4. Test thoroughly
 
 ## 📄 License
-
 This project is open source and available under the MIT License.
 
 ## ✅ Current Implementation Status
@@ -443,11 +440,5 @@ This project is open source and available under the MIT License.
 - RESTful API design
 - MongoDB integration with Mongoose
 - Context API for state management
-
-## 📞 Support
-
-For issues or questions, please refer to the code comments or consult the component documentation.
-
----
 
 **Happy Farming & Shopping! 🌾🛒**
