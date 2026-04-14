@@ -30,6 +30,30 @@ export const getUser = async (userId) => {
   }
 };
 
+const getAuthHeaders = () => {
+  let userId = localStorage.getItem('userId');
+  let userRole = localStorage.getItem('userRole');
+
+  if ((!userId || !userRole) && localStorage.getItem('user')) {
+    try {
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      if (!userId) {
+        userId = storedUser?.id || storedUser?._id || userId;
+      }
+      if (!userRole) {
+        userRole = storedUser?.role || userRole;
+      }
+    } catch (err) {
+      console.warn('Unable to parse stored user for auth headers', err);
+    }
+  }
+
+  const headers = {};
+  if (userId) headers['user-id'] = userId;
+  if (userRole) headers['user-role'] = userRole;
+  return headers;
+};
+
 // Product API calls
 export const getAllProducts = async (category = '', search = '') => {
   try {
@@ -64,13 +88,7 @@ export const getFarmerProducts = async (farmerId) => {
 
 export const createProduct = async (productData) => {
   try {
-    const userId = localStorage.getItem('userId');
-    const userRole = localStorage.getItem('userRole');
-    const headers = {
-      'user-id': userId,
-      'user-role': userRole,
-    };
-
+    const headers = getAuthHeaders();
     const response = await axios.post(`${API_BASE_URL}/products`, productData, { headers });
     return response.data;
   } catch (error) {
@@ -80,13 +98,7 @@ export const createProduct = async (productData) => {
 
 export const updateProduct = async (productId, productData) => {
   try {
-    const userId = localStorage.getItem('userId');
-    const userRole = localStorage.getItem('userRole');
-    const headers = {
-      'user-id': userId,
-      'user-role': userRole,
-    };
-
+    const headers = getAuthHeaders();
     const response = await axios.put(`${API_BASE_URL}/products/${productId}`, productData, { headers });
     return response.data;
   } catch (error) {
@@ -96,13 +108,7 @@ export const updateProduct = async (productId, productData) => {
 
 export const deleteProduct = async (productId) => {
   try {
-    const userId = localStorage.getItem('userId');
-    const userRole = localStorage.getItem('userRole');
-    const headers = {
-      'user-id': userId,
-      'user-role': userRole,
-    };
-
+    const headers = getAuthHeaders();
     const response = await axios.delete(`${API_BASE_URL}/products/${productId}`, { headers });
     return response.data;
   } catch (error) {
@@ -113,13 +119,7 @@ export const deleteProduct = async (productId) => {
 // Order API calls
 export const createOrder = async (orderData) => {
   try {
-    const userId = localStorage.getItem('userId');
-    const userRole = localStorage.getItem('userRole');
-    const headers = {
-      'user-id': userId,
-      'user-role': userRole,
-    };
-
+    const headers = getAuthHeaders();
     const response = await axios.post(`${API_BASE_URL}/orders`, orderData, { headers });
     return response.data;
   } catch (error) {
@@ -129,13 +129,7 @@ export const createOrder = async (orderData) => {
 
 export const getOrder = async (orderId) => {
   try {
-    const userId = localStorage.getItem('userId');
-    const userRole = localStorage.getItem('userRole');
-    const headers = {
-      'user-id': userId,
-      'user-role': userRole,
-    };
-
+    const headers = getAuthHeaders();
     const response = await axios.get(`${API_BASE_URL}/orders/${orderId}`, { headers });
     return response.data;
   } catch (error) {
@@ -145,13 +139,7 @@ export const getOrder = async (orderId) => {
 
 export const getBuyerOrders = async (buyerId) => {
   try {
-    const userId = localStorage.getItem('userId');
-    const userRole = localStorage.getItem('userRole');
-    const headers = {
-      'user-id': userId,
-      'user-role': userRole,
-    };
-
+    const headers = getAuthHeaders();
     const response = await axios.get(`${API_BASE_URL}/orders/buyer/${buyerId}`, { headers });
     return response.data;
   } catch (error) {
@@ -161,13 +149,7 @@ export const getBuyerOrders = async (buyerId) => {
 
 export const updateOrderStatus = async (orderId, status) => {
   try {
-    const userId = localStorage.getItem('userId');
-    const userRole = localStorage.getItem('userRole');
-    const headers = {
-      'user-id': userId,
-      'user-role': userRole,
-    };
-
+    const headers = getAuthHeaders();
     const response = await axios.put(`${API_BASE_URL}/orders/${orderId}/status`, { status }, { headers });
     return response.data;
   } catch (error) {
@@ -177,13 +159,7 @@ export const updateOrderStatus = async (orderId, status) => {
 
 export const cancelOrder = async (orderId) => {
   try {
-    const userId = localStorage.getItem('userId');
-    const userRole = localStorage.getItem('userRole');
-    const headers = {
-      'user-id': userId,
-      'user-role': userRole,
-    };
-
+    const headers = getAuthHeaders();
     const response = await axios.delete(`${API_BASE_URL}/orders/${orderId}`, { headers });
     return response.data;
   } catch (error) {
