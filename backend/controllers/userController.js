@@ -1,16 +1,13 @@
 const User = require('../models/User');
-
 // Register user
 exports.register = async (req, res) => {
   try {
     const { name, email, password, role, location, phone } = req.body;
-
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'User with this email already exists' });
     }
-
     const user = new User({
       name,
       email,
@@ -19,9 +16,7 @@ exports.register = async (req, res) => {
       location,
       phone,
     });
-
     const savedUser = await user.save();
-
     res.status(201).json({
       message: 'User registered successfully',
       user: {
@@ -36,7 +31,6 @@ exports.register = async (req, res) => {
     res.status(500).json({ message: 'Error registering user', error: error.message });
   }
 };
-
 // Login user
 exports.login = async (req, res) => {
   try {
@@ -45,18 +39,14 @@ exports.login = async (req, res) => {
     if (!email || !password) {
       return res.status(400).json({ message: 'Email and password are required' });
     }
-
     const user = await User.findOne({ email });
-
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
-
     // In production, compare hashed passwords
     if (user.password !== password) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
-
     res.json({
       message: 'Login successful',
       user: {
@@ -71,7 +61,6 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: 'Error logging in', error: error.message });
   }
 };
-
 // Get all users
 exports.getAllUsers = async (req, res) => {
   try {
@@ -81,7 +70,6 @@ exports.getAllUsers = async (req, res) => {
     res.status(500).json({ message: 'Error fetching users', error: error.message });
   }
 };
-
 // Get user by ID
 exports.getUser = async (req, res) => {
   try {
