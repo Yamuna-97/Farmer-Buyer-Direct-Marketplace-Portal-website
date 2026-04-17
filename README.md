@@ -440,5 +440,3 @@ This project is open source and available under the MIT License.
 - RESTful API design
 - MongoDB integration with Mongoose
 - Context API for state management
-
-**Happy Farming & Shopping! 🌾🛒**
