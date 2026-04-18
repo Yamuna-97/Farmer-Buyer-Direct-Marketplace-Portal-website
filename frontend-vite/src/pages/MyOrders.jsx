@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
-import { getBuyerOrders, cancelOrder } from '../hooks/useApi';
+import { getBuyerOrders, getFarmerOrders, cancelOrder } from '../hooks/useApi';
 import './MyOrders.css';
 
 const MyOrders = () => {
@@ -24,7 +24,9 @@ const MyOrders = () => {
     setLoading(true);
     setError('');
     try {
-      const data = await getBuyerOrders(user.id);
+      const data = user.role === 'farmer'
+        ? await getFarmerOrders()
+        : await getBuyerOrders(user.id);
       setOrders(data);
     } catch (error) {
       setError(error.message || 'Failed to load orders');
@@ -72,7 +74,11 @@ const MyOrders = () => {
   return (
     <div className="my-orders-container">
       <h1>My Orders</h1>
-      <p>Track your orders and manage deliveries</p>
+      <p>
+        {user.role === 'farmer'
+          ? 'Track orders placed on your products'
+          : 'Track your orders and manage deliveries'}
+      </p>
 
       {error && <div className="error-message">{error}</div>}
 
@@ -80,7 +86,11 @@ const MyOrders = () => {
         <div className="loading">Loading your orders...</div>
       ) : orders.length === 0 ? (
         <div className="no-orders">
-          <p>You haven't placed any orders yet.</p>
+          <p>
+            {user.role === 'farmer'
+              ? 'No orders have been placed on your products yet.'
+              : "You haven't placed any orders yet."}
+          </p>
           <button className="btn-shop" onClick={() => navigate('/marketplace')}>
             Continue Shopping
           </button>
@@ -123,7 +133,7 @@ const MyOrders = () => {
                 </div>
               </div>
 
-              {order.status !== 'delivered' && order.status !== 'cancelled' && (
+              {user.role === 'buyer' && order.status !== 'delivered' && order.status !== 'cancelled' && (
                 <button
                   className="btn-cancel-order"
                   onClick={() => handleCancelOrder(order._id)}

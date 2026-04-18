@@ -5,17 +5,33 @@ import { getAllProducts } from '../hooks/useApi';
 import ProductCard from './ProductCard';
 import './Marketplace.css';
 
-const loadCartItems = () => {
+const getCartStorageKey = (user) => {
+  if (!user?.id || !user?.role) {
+    return null;
+  }
+  return `cart_${user.role}_${user.id}`;
+};
+
+const loadCartItems = (user) => {
+  const cartKey = getCartStorageKey(user);
+  if (!cartKey) {
+    return [];
+  }
+
   try {
-    return JSON.parse(localStorage.getItem('cart') || '[]');
+    return JSON.parse(localStorage.getItem(cartKey) || '[]');
   } catch (error) {
     console.error('Error parsing cart from localStorage', error);
     return [];
   }
 };
 
-const saveCartItems = (items) => {
-  localStorage.setItem('cart', JSON.stringify(items));
+const saveCartItems = (user, items) => {
+  const cartKey = getCartStorageKey(user);
+  if (!cartKey) {
+    return;
+  }
+  localStorage.setItem(cartKey, JSON.stringify(items));
 };
 
 const Marketplace = () => {
@@ -26,12 +42,16 @@ const Marketplace = () => {
   const [error, setError] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [cart, setCart] = useState(loadCartItems());
+  const [cart, setCart] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    setCart(loadCartItems(user));
+  }, [user]);
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -69,11 +89,6 @@ const Marketplace = () => {
   };
 
   const handleAddToCart = (productId) => {
-    if (user?.role !== 'buyer') {
-      navigate(`/product/${productId}`);
-      return;
-    }
-
     const productToAdd = products.find((product) => product._id === productId);
     if (!productToAdd) {
       setError('Unable to add product to cart. Please try again.');
@@ -88,7 +103,7 @@ const Marketplace = () => {
 
     const updatedCart = [...cart, productToAdd];
     setCart(updatedCart);
-    saveCartItems(updatedCart);
+    saveCartItems(user, updatedCart);
     setError('');
     alert('Product added to cart!');
   };
@@ -139,7 +154,7 @@ const Marketplace = () => {
               product={product}
               onViewDetails={handleViewDetails}
               onAddToCart={handleAddToCart}
-              showAddToCart={user?.role === 'buyer'}
+              showAddToCart={true}
             />
           ))}
         </div>

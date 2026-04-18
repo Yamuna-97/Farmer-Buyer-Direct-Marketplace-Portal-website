@@ -1,27 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 import './Cart.css';
 
-const loadCartItems = () => {
+const getCartStorageKey = (user) => {
+  if (!user?.id || !user?.role) {
+    return null;
+  }
+  return `cart_${user.role}_${user.id}`;
+};
+
+const loadCartItems = (user) => {
+  const cartKey = getCartStorageKey(user);
+  if (!cartKey) {
+    return [];
+  }
+
   try {
-    return JSON.parse(localStorage.getItem('cart') || '[]');
+    return JSON.parse(localStorage.getItem(cartKey) || '[]');
   } catch (error) {
     console.error('Error parsing cart from localStorage', error);
     return [];
   }
 };
 
-const saveCartItems = (items) => {
-  localStorage.setItem('cart', JSON.stringify(items));
+const saveCartItems = (user, items) => {
+  const cartKey = getCartStorageKey(user);
+  if (!cartKey) {
+    return;
+  }
+  localStorage.setItem(cartKey, JSON.stringify(items));
 };
 
 const Cart = () => {
+  const { user } = useContext(UserContext);
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setCartItems(loadCartItems());
-  }, []);
+    setCartItems(loadCartItems(user));
+  }, [user]);
 
   const handleViewProduct = (productId) => {
     navigate(`/product/${productId}`);
@@ -30,12 +48,12 @@ const Cart = () => {
   const handleRemoveItem = (productId) => {
     const updatedItems = cartItems.filter((item) => item._id !== productId);
     setCartItems(updatedItems);
-    saveCartItems(updatedItems);
+    saveCartItems(user, updatedItems);
   };
 
   const handleClearCart = () => {
     setCartItems([]);
-    saveCartItems([]);
+    saveCartItems(user, []);
   };
 
   return (
