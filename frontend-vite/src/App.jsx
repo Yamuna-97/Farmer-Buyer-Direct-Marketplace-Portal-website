@@ -12,28 +12,21 @@ import ProductDetails from './pages/ProductDetails';
 import MyOrders from './pages/MyOrders';
 import Cart from './pages/Cart';
 import './App.css';
-
 const PrivateRoute = ({ children, requiredRole }) => {
   const { user, loading } = useContext(UserContext);
-
   if (loading) {
     return <div className="loading">Loading...</div>;
   }
-
   if (!user) {
     return <Navigate to="/login" />;
   }
-
   if (requiredRole && user.role !== requiredRole) {
     return <Navigate to={user.role === 'farmer' ? '/dashboard' : '/marketplace'} />;
   }
-
   return children;
 };
-
 export default function App() {
   const { user } = useContext(UserContext);
-
   return (
     <>
       <Router>
