@@ -110,7 +110,12 @@ export const createOrder = async (orderData) => {
     });
     return response.data;
   } catch (error) {
-    throw error.response?.data || error.message;
+    throw (
+      error.response?.data?.message ||
+      error.response?.data ||
+      error.message ||
+      'Error creating order'
+    );
   }
 };
 

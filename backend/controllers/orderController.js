@@ -92,6 +92,24 @@ exports.getBuyerOrders = async (req, res) => {
     res.status(500).json({ message: 'Error fetching buyer orders', error: error.message });
   }
 };
+
+// Get farmer's orders
+exports.getFarmerOrders = async (req, res) => {
+  try {
+    const orders = await Order.find()
+      .populate('buyerId', 'name email location')
+      .populate('productId', 'name price category farmerId');
+
+    const farmerOrders = orders.filter(
+      (order) => order.productId?.farmerId?.toString() === req.userId
+    );
+
+    res.json(farmerOrders);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching farmer orders', error: error.message });
+  }
+};
+
 // Cancel order (Buyer only)
 exports.cancelOrder = async (req, res) => {
   try {

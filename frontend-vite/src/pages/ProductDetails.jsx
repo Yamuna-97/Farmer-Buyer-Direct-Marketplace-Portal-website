@@ -47,7 +47,7 @@ const ProductDetails = () => {
     const userId = localStorage.getItem('userId');
     const userRole = localStorage.getItem('userRole');
 
-    if (!userId || userRole !== 'buyer') {
+    if (!userId || userRole?.toLowerCase() !== 'buyer') {
       setError('Please log in as a buyer to place an order');
       return;
     }
