@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProduct, createOrder } from '../hooks/useApi';
 import './ProductDetails.css';
-
 const ProductDetails = () => {
   const { id: productId } = useParams();
   const navigate = useNavigate();
@@ -12,11 +11,9 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [ordering, setOrdering] = useState(false);
-
   useEffect(() => {
     fetchProduct();
   }, [productId]);
-
   const fetchProduct = async () => {
     setLoading(true);
     setError('');
@@ -29,29 +26,23 @@ const ProductDetails = () => {
       setLoading(false);
     }
   };
-
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
     setError('');
-
     if (!deliveryAddress) {
       setError('Please enter a delivery address');
       return;
     }
-
     if (quantity <= 0 || quantity > product.quantity) {
       setError('Invalid quantity');
       return;
     }
-
     const userId = localStorage.getItem('userId');
     const userRole = localStorage.getItem('userRole');
-
     if (!userId || userRole?.toLowerCase() !== 'buyer') {
       setError('Please log in as a buyer to place an order');
       return;
     }
-
     setOrdering(true);
     try {
       await createOrder({
@@ -59,7 +50,6 @@ const ProductDetails = () => {
         quantity: parseFloat(quantity),
         deliveryAddress,
       });
-
       alert('Order placed successfully!');
       navigate('/my-orders');
     } catch (error) {
@@ -68,17 +58,14 @@ const ProductDetails = () => {
       setOrdering(false);
     }
   };
-
   if (loading) return <div className="loading">Loading product details...</div>;
   if (error) return <div className="error">Error: {error}</div>;
   if (!product) return <div className="not-found">Product not found</div>;
-
   return (
     <div className="product-details-container">
       <button className="btn-back" onClick={() => navigate('/marketplace')}>
         ← Back to Marketplace
       </button>
-
       <div className="product-details">
         <div className="product-image">
           {product.image ? (
@@ -87,16 +74,13 @@ const ProductDetails = () => {
             <div className="image-placeholder">{product.category}</div>
           )}
         </div>
-
         <div className="product-info">
           <h1>{product.name}</h1>
           <p className="category">{product.category.toUpperCase()}</p>
-
           <div className="price-section">
             <h2 className="price">₹{product.price}</h2>
             <span className="unit">per {product.unit}</span>
           </div>
-
           {product.description && (
             <div className="description">
               <h3>Description</h3>
