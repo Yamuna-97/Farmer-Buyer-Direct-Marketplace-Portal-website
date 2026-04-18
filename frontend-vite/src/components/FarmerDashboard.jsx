@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import { getFarmerProducts, deleteProduct } from '../hooks/useApi';
 import './FarmerDashboard.css';
@@ -93,9 +94,9 @@ const FarmerDashboard = () => {
                   <td>{product.unit}</td>
                   <td>{product.location}</td>
                   <td className="actions">
-                    <button className="btn-edit">
-                      <a href={`/edit-product/${product._id}`}>Edit</a>
-                    </button>
+                    <Link className="btn-edit" to={`/edit-product/${product._id}`}>
+                      Edit
+                    </Link>
                     <button
                       className="btn-delete"
                       onClick={() => handleDeleteProduct(product._id)}

@@ -4,7 +4,7 @@ import { getProduct, createOrder } from '../hooks/useApi';
 import './ProductDetails.css';
 
 const ProductDetails = () => {
-  const { productId } = useParams();
+  const { id: productId } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
