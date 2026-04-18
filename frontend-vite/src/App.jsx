@@ -10,6 +10,7 @@ import AddProduct from './components/AddProduct';
 import EditProduct from './components/EditProduct';
 import ProductDetails from './pages/ProductDetails';
 import MyOrders from './pages/MyOrders';
+import Cart from './pages/Cart';
 import './App.css';
 
 const PrivateRoute = ({ children, requiredRole }) => {
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="/add-product" element={<PrivateRoute requiredRole="farmer"><AddProduct /></PrivateRoute>} />
           <Route path="/edit-product/:id" element={<PrivateRoute requiredRole="farmer"><EditProduct /></PrivateRoute>} />
           <Route path="/product/:id" element={<PrivateRoute><ProductDetails /></PrivateRoute>} />
+          <Route path="/cart" element={<PrivateRoute requiredRole="buyer"><Cart /></PrivateRoute>} />
           <Route path="/my-orders" element={<PrivateRoute><MyOrders /></PrivateRoute>} />
           <Route path="/" element={<Navigate to={user ? (user.role === 'farmer' ? '/dashboard' : '/marketplace') : '/login'} />} />
         </Routes>

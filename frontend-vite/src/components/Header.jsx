@@ -29,6 +29,9 @@ const Header = () => {
                   <Link to="/dashboard" className="nav-link">
                     Dashboard
                   </Link>
+                  <Link to="/marketplace" className="nav-link">
+                    Marketplace
+                  </Link>
                   <Link to="/add-product" className="nav-link">
                     Add Product
                   </Link>
@@ -37,6 +40,9 @@ const Header = () => {
                 <>
                   <Link to="/marketplace" className="nav-link">
                     Marketplace
+                  </Link>
+                  <Link to="/cart" className="nav-link">
+                    Cart
                   </Link>
                   <Link to="/my-orders" className="nav-link">
                     My Orders

@@ -1,16 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 import { getAllProducts } from '../hooks/useApi';
 import ProductCard from './ProductCard';
 import './Marketplace.css';
 
+const loadCartItems = () => {
+  try {
+    return JSON.parse(localStorage.getItem('cart') || '[]');
+  } catch (error) {
+    console.error('Error parsing cart from localStorage', error);
+    return [];
+  }
+};
+
+const saveCartItems = (items) => {
+  localStorage.setItem('cart', JSON.stringify(items));
+};
+
 const Marketplace = () => {
+  const { user } = useContext(UserContext);
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [cart, setCart] = useState(loadCartItems());
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -53,7 +69,27 @@ const Marketplace = () => {
   };
 
   const handleAddToCart = (productId) => {
-    navigate(`/product/${productId}`);
+    if (user?.role !== 'buyer') {
+      navigate(`/product/${productId}`);
+      return;
+    }
+
+    const productToAdd = products.find((product) => product._id === productId);
+    if (!productToAdd) {
+      setError('Unable to add product to cart. Please try again.');
+      return;
+    }
+
+    const alreadyAdded = cart.some((item) => item._id === productId);
+    if (alreadyAdded) {
+      setError('This product is already in your cart.');
+      return;
+    }
+
+    const updatedCart = [...cart, productToAdd];
+    setCart(updatedCart);
+    saveCartItems(updatedCart);
+    alert('Product added to cart!');
   };
 
   return (
@@ -102,7 +138,7 @@ const Marketplace = () => {
               product={product}
               onViewDetails={handleViewDetails}
               onAddToCart={handleAddToCart}
-              showAddToCart={true}
+              showAddToCart={user?.role === 'buyer'}
             />
           ))}
         </div>
