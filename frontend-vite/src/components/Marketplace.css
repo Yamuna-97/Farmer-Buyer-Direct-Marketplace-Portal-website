@@ -71,6 +71,11 @@
   background: #764ba2;
 }
 
+.btn-refresh:focus-visible {
+  outline: 3px solid rgba(102, 126, 234, 0.35);
+  outline-offset: 2px;
+}
+
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

@@ -89,6 +89,7 @@ const Marketplace = () => {
     const updatedCart = [...cart, productToAdd];
     setCart(updatedCart);
     saveCartItems(updatedCart);
+    setError('');
     alert('Product added to cart!');
   };
 

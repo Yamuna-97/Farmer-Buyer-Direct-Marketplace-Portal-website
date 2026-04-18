@@ -112,6 +112,7 @@
 
 .btn-view:hover {
   background: #764ba2;
+  transform: translateY(-1px);
 }
 
 .btn-add-cart {
@@ -121,4 +122,11 @@
 
 .btn-add-cart:hover {
   background: #218838;
+  transform: translateY(-1px);
+}
+
+.btn-view:focus-visible,
+.btn-add-cart:focus-visible {
+  outline: 3px solid rgba(102, 126, 234, 0.35);
+  outline-offset: 2px;
 }

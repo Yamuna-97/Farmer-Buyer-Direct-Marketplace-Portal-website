@@ -61,6 +61,24 @@
   margin-right: 12px;
 }
 
+.btn-clear:hover,
+.btn-remove:hover {
+  background: #dc4a4a;
+}
+
+.btn-view:hover,
+.btn-secondary:hover {
+  background: #4b52d6;
+}
+
+.btn-clear:focus-visible,
+.btn-remove:focus-visible,
+.btn-view:focus-visible,
+.btn-secondary:focus-visible {
+  outline: 3px solid rgba(92, 100, 244, 0.35);
+  outline-offset: 2px;
+}
+
 .cart-items {
   display: grid;
   gap: 16px;
