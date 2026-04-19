@@ -17,7 +17,6 @@ This project includes:
 - Frontend: React, React Router, Axios, Vite
 - Backend: Node.js, Express, Mongoose, CORS, dotenv
 - Database: MongoDB
-
 ## Repository Structure
 
 ```text
