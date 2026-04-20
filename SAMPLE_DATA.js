@@ -1,7 +1,4 @@
-// MongoDB Sample Data
-// Copy and paste these commands in MongoDB shell or import via mongoimport
 
-// Register admin users for testing
 db.users.insertMany([
   {
     name: "Rajesh Kumar",
@@ -41,7 +38,6 @@ db.users.insertMany([
   }
 ]);
 
-// Insert sample products
 db.products.insertMany([
   {
     name: "Fresh Tomatoes",
