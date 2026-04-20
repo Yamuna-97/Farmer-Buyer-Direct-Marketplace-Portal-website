@@ -11,7 +11,6 @@ const getAuthHeaders = () => {
   return headers;
 };
 
-// User API calls
 export const registerUser = async (userData) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/users/register`, userData);
@@ -30,7 +29,6 @@ export const loginUser = async (email, password) => {
   }
 };
 
-// Product API calls
 export const getProducts = async (filters = {}) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/products`, { params: filters });
@@ -102,7 +100,6 @@ export const deleteProduct = async (productId) => {
   }
 };
 
-// Order API calls
 export const createOrder = async (orderData) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/orders`, orderData, {
