@@ -1,202 +1,208 @@
-# Farmer-Buyer Direct Marketplace Portal
+<h1 align="center">🌾 Farmer-Buyer Direct Marketplace Portal</h1>
 
-Full-stack marketplace web app that connects farmers and buyers directly.
+<p align="center">
+  <b>Connecting Farmers 🤝 Buyers — No Middlemen, Just Value</b><br/>
+  <i>Full-stack marketplace web application built with modern technologies</i>
+</p>
 
-## Overview
+<p align="center">
+  <img src="https://img.shields.io/badge/Frontend-React-blue?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Backend-Node.js-green?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Database-MongoDB-brightgreen?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge"/>
+</p>
 
-This project includes:
+---
 
-- Backend API with Node.js, Express, and MongoDB
-- Frontend client with React + Vite
-- Role-based flows for farmer and buyer users
-- Product listing, search, filtering, cart, and order management
-- Static product image serving from the `picture/` folder
+## 📌 Overview
 
-## Tech Stack
+<div align="center">
 
-- Frontend: React, React Router, Axios, Vite
-- Backend: Node.js, Express, Mongoose, CORS, dotenv
-- Database: MongoDB
-## Repository Structure
+🚜 A **full-stack marketplace platform** that enables farmers to sell products directly to buyers.
+
+💡 Eliminates intermediaries, ensuring **better pricing and transparency**.
+
+</div>
+
+---
+
+## ✨ Key Features
+
+<ul>
+  <li>👤 Role-based login (Farmer & Buyer)</li>
+  <li>🛒 Cart & Order Management</li>
+  <li>🔍 Product Search & Filtering</li>
+  <li>📦 Product CRUD for Farmers</li>
+  <li>📊 Order Tracking System</li>
+  <li>🖼️ Static Image Serving</li>
+</ul>
+
+---
+
+## 🏗️ Tech Stack
+
+<table align="center">
+<tr>
+<td><b>Frontend</b></td>
+<td>React, Vite, Axios</td>
+</tr>
+<tr>
+<td><b>Backend</b></td>
+<td>Node.js, Express</td>
+</tr>
+<tr>
+<td><b>Database</b></td>
+<td>MongoDB</td>
+</tr>
+<tr>
+<td><b>Others</b></td>
+<td>Mongoose, dotenv, CORS</td>
+</tr>
+</table>
+
+---
+
+## 📂 Project Structure
 
 ```text
 Farmer-Buyer-Direct-Marketplace-Portal-website/
-|-- backend/
-|   |-- controllers/
-|   |-- middleware/
-|   |-- models/
-|   |-- routes/
-|   |-- db.js
-|   |-- server.js
-|   |-- package.json
-|   `-- .env.example
-|-- frontend-vite/
-|   |-- src/
-|   |   |-- components/
-|   |   |-- context/
-|   |   |-- hooks/
-|   |   `-- pages/
-|   |-- public/
-|   |-- package.json
-|   `-- vite.config.js
-|-- picture/
-|-- SAMPLE_DATA.js
-`-- README.md
+│
+├── backend/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── db.js
+│   ├── server.js
+│   └── package.json
+│
+├── frontend-vite/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── hooks/
+│   │   └── pages/
+│   ├── public/
+│   └── package.json
+│
+├── picture/
+├── SAMPLE_DATA.js
+└── README.md
 ```
 
-## Prerequisites
+---
 
-- Node.js 18+
-- npm
-- MongoDB (local or Atlas)
+## ⚙️ Setup Instructions
 
-## Environment Setup
-
-Create `backend/.env` from `backend/.env.example`.
-
-Example:
-
-```env
-MONGODB_URI=mongodb://localhost:27017/farmer-buyer-marketplace
-PORT=5000
-NODE_ENV=development
-```
-
-Frontend API base URL is read from `VITE_API_URL` in `frontend-vite`.
-If not set, it defaults to `http://localhost:5000/api`.
-
-Optional `frontend-vite/.env`:
-
-```env
-VITE_API_URL=http://localhost:5000/api
-```
-
-## Install Dependencies
-
-From repository root, run:
+### 🔧 Backend Setup
 
 ```bash
 cd backend
 npm install
-
-cd ../frontend-vite
-npm install
-```
-
-## Run the Application
-
-Start backend:
-
-```bash
-cd backend
 npm run dev
 ```
 
-Start frontend (new terminal):
+---
+
+### 🎨 Frontend Setup
 
 ```bash
 cd frontend-vite
+npm install
 npm run dev
 ```
 
-Default local URLs:
+---
 
-- Backend: `http://localhost:5000`
-- Health check: `http://localhost:5000/api/health`
-- Frontend: `http://localhost:5173`
-- Images: `http://localhost:5000/images/<filename>`
+## 🌐 Local URLs
 
-## Seed Sample Data
+| Service    | URL                              |
+| ---------- | -------------------------------- |
+| Backend    | http://localhost:5000            |
+| Frontend   | http://localhost:5173            |
+| API Health | http://localhost:5000/api/health |
 
-Use the provided `SAMPLE_DATA.js` file in Mongo shell:
+---
 
-```bash
-mongosh
-use farmer-buyer-marketplace
-load("SAMPLE_DATA.js")
+## 🧪 Demo Credentials
+
+<div align="center">
+
+| Role      | Email                                     | Password  |
+| --------- | ----------------------------------------- | --------- |
+| 🚜 Farmer | [rajesh@farm.com](mailto:rajesh@farm.com) | farmer123 |
+| 🛒 Buyer  | [amit@buyer.com](mailto:amit@buyer.com)   | buyer123  |
+
+</div>
+
+---
+
+## 🔌 API Endpoints
+
+<details>
+<summary>Click to Expand</summary>
+
+### 👤 Users
+
+* POST /users/register
+* POST /users/login
+* GET /users
+* GET /users/:id
+
+### 📦 Products
+
+* GET /products
+* GET /products/:id
+* POST /products
+* PUT /products/:id
+* DELETE /products/:id
+* GET /products/farmer/:farmerId
+
+### 🛒 Orders
+
+* GET /orders
+* GET /orders/:id
+* GET /orders/buyer/:buyerId
+* GET /orders/farmer
+* POST /orders
+* PUT /orders/:id/status
+* DELETE /orders/:id
+
+</details>
+
+---
+
+## 🔐 Authentication
+
+Currently uses header-based authentication:
+
+```
+user-id: <mongodb_user_id>
+user-role: farmer | buyer
 ```
 
-This inserts:
+⚠️ For production, use JWT authentication and hashed passwords.
 
-- 4 users (2 farmers, 2 buyers)
-- 8 products
-- 3 orders
+---
 
-## Demo Credentials
+## 📊 Highlights
 
-Farmer:
+✔ Full-stack architecture
 
-- Email: `rajesh@farm.com`
-- Password: `farmer123`
+✔ REST API design
 
-Buyer:
+✔ Role-based system
 
-- Email: `amit@buyer.com`
-- Password: `buyer123`
+✔ Real-world use case (Agri Marketplace)
 
-## NPM Scripts
+---
 
-Backend (`backend/package.json`):
+## 🚀 Future Enhancements
 
-- `npm start` - Run API server
-- `npm run dev` - Run API with nodemon
+* 🔒 JWT Authentication
+* 💳 Payment Integration
+* 📱 Mobile Responsiveness
+* ☁️ Cloud Deployment
 
-Frontend (`frontend-vite/package.json`):
+---
 
-- `npm run dev` - Start Vite dev server
-- `npm run build` - Create production build
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-
-## API Summary
-
-Base URL: `http://localhost:5000/api`
-
-User routes:
-
-- `POST /users/register`
-- `POST /users/login`
-- `GET /users`
-- `GET /users/:id`
-
-Product routes:
-
-- `GET /products`
-- `GET /products/:id`
-- `POST /products`
-- `PUT /products/:id`
-- `DELETE /products/:id`
-- `GET /products/farmer/:farmerId`
-
-Order routes:
-
-- `GET /orders`
-- `GET /orders/:id`
-- `GET /orders/buyer/:buyerId`
-- `GET /orders/farmer`
-- `POST /orders`
-- `PUT /orders/:id/status`
-- `DELETE /orders/:id`
-
-## Authentication Model (Current)
-
-Protected endpoints use request headers:
-
-- `user-id: <mongodb_user_id>`
-- `user-role: farmer|buyer`
-
-Note: This is suitable for learning/demo usage. For production, replace with secure token-based auth (for example JWT) and hashed passwords.
-
-## Current Feature Set
-
-- User registration and login
-- Farmer product CRUD
-- Buyer browsing, product detail, and cart flow
-- Buyer order placement and cancellation
-- Farmer order status updates
-- Product category filter and search
-- Static image display for sample products
-
-## License
-
-MIT
