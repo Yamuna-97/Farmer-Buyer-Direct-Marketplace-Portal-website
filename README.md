@@ -101,7 +101,6 @@ cd backend
 npm install
 npm run dev
 ```
-
 ---
 
 ### 🎨 Frontend Setup
@@ -200,8 +199,11 @@ user-role: farmer | buyer
 ## 🚀 Future Enhancements
 
 * 🔒 JWT Authentication
+  
 * 💳 Payment Integration
+  
 * 📱 Mobile Responsiveness
+  
 * ☁️ Cloud Deployment
 
 ---
