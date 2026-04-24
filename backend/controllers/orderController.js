@@ -1,6 +1,6 @@
 const Order = require('../models/Order');
 const Product = require('../models/Product');
-// Create order (Buyer only)
+
 exports.createOrder = async (req, res) => {
   try {
     const { productId, quantity, deliveryAddress } = req.body;
@@ -20,7 +20,7 @@ exports.createOrder = async (req, res) => {
       totalPrice,
       deliveryAddress,
     });
-    // Update product quantity
+
     product.quantity -= quantity;
     await product.save();
     const savedOrder = await order.save();
@@ -32,7 +32,7 @@ exports.createOrder = async (req, res) => {
     res.status(500).json({ message: 'Error creating order', error: error.message });
   }
 };
-// Get all orders
+
 exports.getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find()
@@ -43,7 +43,7 @@ exports.getAllOrders = async (req, res) => {
     res.status(500).json({ message: 'Error fetching orders', error: error.message });
   }
 };
-// Get order by ID
+
 exports.getOrder = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id)
@@ -57,7 +57,7 @@ exports.getOrder = async (req, res) => {
     res.status(500).json({ message: 'Error fetching order', error: error.message });
   }
 };
-// Update order status
+
 exports.updateOrderStatus = async (req, res) => {
   try {
     const { status } = req.body;
@@ -80,7 +80,7 @@ exports.updateOrderStatus = async (req, res) => {
     res.status(500).json({ message: 'Error updating order', error: error.message });
   }
 };
-// Get buyer's orders
+
 exports.getBuyerOrders = async (req, res) => {
   try {
     const buyerId = req.params.buyerId;
@@ -93,7 +93,6 @@ exports.getBuyerOrders = async (req, res) => {
   }
 };
 
-// Get farmer's orders
 exports.getFarmerOrders = async (req, res) => {
   try {
     const orders = await Order.find()
@@ -110,7 +109,6 @@ exports.getFarmerOrders = async (req, res) => {
   }
 };
 
-// Cancel order (Buyer only)
 exports.cancelOrder = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
@@ -123,7 +121,7 @@ exports.cancelOrder = async (req, res) => {
     if (order.status === 'shipped' || order.status === 'delivered') {
       return res.status(400).json({ message: 'Cannot cancel orders that are shipped or delivered' });
     }
-    // Refund product quantity
+
     const product = await Product.findById(order.productId);
     product.quantity += order.quantity;
     await product.save();
