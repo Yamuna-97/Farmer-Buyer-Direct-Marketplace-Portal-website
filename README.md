@@ -205,6 +205,4 @@ user-role: farmer | buyer
 * 📱 Mobile Responsiveness
   
 * ☁️ Cloud Deployment
-
 ---
-
