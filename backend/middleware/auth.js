@@ -1,4 +1,3 @@
-// Simple authentication middleware
 const authMiddleware = (req, res, next) => {
   const userId = req.headers['user-id'] || req.headers['userid'] || req.headers['userId'];
   const rawUserRole = req.headers['user-role'] || req.headers['userrole'] || req.headers['userRole'];
@@ -14,7 +13,6 @@ const authMiddleware = (req, res, next) => {
   next();
 };
 
-// Role-based access control
 const authorizeRole = (roles) => {
   const normalizedRoles = roles.map((role) => role.toString().trim().toLowerCase());
 
