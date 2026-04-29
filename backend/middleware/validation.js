@@ -1,4 +1,3 @@
-// Validation middleware for products
 const validateProduct = (req, res, next) => {
   const { name, price, quantity, category, location } = req.body;
   if (!name || !price || !quantity || !category || !location) {
@@ -18,7 +17,6 @@ const validateProduct = (req, res, next) => {
   }
   next();
 };
-// Validation middleware for users
 const validateUser = (req, res, next) => {
   const { name, email, password, role, location } = req.body;
   if (!name || !email || !password || !role || !location) {
@@ -33,7 +31,6 @@ const validateUser = (req, res, next) => {
   }
   next();
 };
-// Validation middleware for orders
 const validateOrder = (req, res, next) => {
   const { productId, quantity, deliveryAddress } = req.body;
   if (!productId || !quantity || !deliveryAddress) {
