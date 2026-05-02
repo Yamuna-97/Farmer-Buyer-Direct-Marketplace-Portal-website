@@ -15,7 +15,6 @@ app.use(express.json());
 app.use(loggingMiddleware);
 
 app.use('/images', express.static(path.join(__dirname, '../picture')));
-
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
@@ -23,11 +22,9 @@ app.use('/api/orders', orderRoutes);
 app.get('/api/health', (req, res) => {
   res.json({ message: 'Server is running' });
 });
-
 app.get('/', (req, res) => {
   res.send('API Running...');
 });
-
 app.use((err, req, res, next) => {
   console.error('Error:', err.message);
   res.status(500).json({
@@ -35,7 +32,6 @@ app.use((err, req, res, next) => {
     error: err.message
   });
 });
-
 const PORT = process.env.PORT || 5000;
 connectDB()
   .then(() => {
