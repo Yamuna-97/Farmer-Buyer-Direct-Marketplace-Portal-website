@@ -89,7 +89,6 @@ Farmer-Buyer-Direct-Marketplace-Portal-website/
 ├── SAMPLE_DATA.js
 └── README.md
 ```
-
 ---
 
 ## ⚙️ Setup Instructions
