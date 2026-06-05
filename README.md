@@ -179,6 +179,7 @@ user-id: <mongodb_user_id>
 user-role: farmer | buyer
 ```
 
+
 ⚠️ For production, use JWT authentication and hashed passwords.
 
 ---
