@@ -1,7 +1,7 @@
 <h1 align="center">🌾 Farmer-Buyer Direct Marketplace Portal</h1>
 
 <p align="center">
-  <b>Connecting Farmers 🤝 Buyers — No Middlemen, Just Value</b><br/>
+  <b>Connecting Farmers 🤝 Buyers — No Middlemen, Just Value </b><br/>
   <i>Full-stack marketplace web application built with modern technologies</i>
 </p>
 
