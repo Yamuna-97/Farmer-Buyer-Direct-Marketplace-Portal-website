@@ -1,9 +1,10 @@
-<h1 align="center">🌾 Farmer-Buyer Direct Marketplace Portal</h1>
+qk<h1 align="center">🌾 Farmer-Buyer Direct Marketplace Portal</h1>
 
 <p align="center">
   <b>Connecting Farmers 🤝 Buyers — No Middlemen, Just Value </b><br/>
   <i>Full-stack marketplace web application built with modern technologies</i>
 </p>
+
 
 <p align="center">
   <img src="https://img.shields.io/badge/Frontend-React-blue?style=for-the-badge"/>
