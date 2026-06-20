@@ -1,4 +1,4 @@
-qk<h1 align="center">🌾 Farmer-Buyer Direct Marketplace Portal</h1>
+<h1 align="center">🌾 Farmer-Buyer Direct Marketplace Portal</h1>
 
 <p align="center">
   <b>Connecting Farmers 🤝 Buyers — No Middlemen, Just Value </b><br/>
